@@ -19,3 +19,25 @@ h1 {
     color: #43c6ac;
     margin-bottom: 24px;
 }
+
+.menu {
+    margin-bottom: 24px;
+}
+.menu select, .menu input, .menu button {
+    margin: 8px 4px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #43c6ac;
+    font-size: 1em;
+}
+.menu button {
+    background: #43c6ac;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.menu button:hover {
+    background: #f8ffae;
+    color: #43c6ac;
+}
