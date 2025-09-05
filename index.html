@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ...existing code... -->
+    <div class="container">
+        <h1>Joke Fetcher</h1>
+        <div class="menu">
+            <select id="fetchType">
+                <option value="random">Véletlen</option>
+                <option value="id">ID alapján</option>
+                <option value="type">Típus alapján</option>
+            </select>
+            <input type="number" id="jokeId" placeholder="ID" style="display:none;">
+            <select id="jokeType" style="display:none;">
+                <option value="general">General</option>
+                <option value="programming">Programming</option>
+                <option value="knock-knock">Knock-Knock</option>
+            </select>
+            <button id="fetchBtn">Lekérés</button>
+        </div>
+        <div id="jokeDisplay" class="joke"></div>
+        <button id="nextBtn" style="display:none;">Újabb vicc</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
