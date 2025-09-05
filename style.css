@@ -14,3 +14,8 @@ body {
     padding: 32px 24px;
     text-align: center;
 }
+
+h1 {
+    color: #43c6ac;
+    margin-bottom: 24px;
+}
