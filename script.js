@@ -17,3 +17,12 @@ fetchType.addEventListener('change', () => {
         jokeTypeSelect.style.display = 'inline-block';
     }
 });
+
+function showJoke(joke) {
+    if (joke.type === 'knock-knock') {
+        jokeDisplay.innerHTML = `<b>${joke.setup}</b><br>${joke.punchline}`;
+    } else {
+        jokeDisplay.innerHTML = `<b>${joke.setup}</b><br>${joke.punchline}`;
+    }
+    nextBtn.style.display = (lastType === 'random' || lastType === 'type') ? 'inline-block' : 'none';
+}
