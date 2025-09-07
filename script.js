@@ -7,3 +7,13 @@ const nextBtn = document.getElementById('nextBtn');
 
 let lastType = 'random';
 let lastValue = null;
+
+fetchType.addEventListener('change', () => {
+    jokeIdInput.style.display = 'none';
+    jokeTypeSelect.style.display = 'none';
+    if (fetchType.value === 'id') {
+        jokeIdInput.style.display = 'inline-block';
+    } else if (fetchType.value === 'type') {
+        jokeTypeSelect.style.display = 'inline-block';
+    }
+});
