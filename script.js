@@ -52,3 +52,24 @@ async function fetchJoke(type, value) {
         nextBtn.style.display = 'none';
     }
 }
+
+fetchBtn.addEventListener('click', () => {
+    lastType = fetchType.value;
+    if (lastType === 'id') {
+        lastValue = jokeIdInput.value;
+        fetchJoke('id', lastValue);
+    } else if (lastType === 'type') {
+        lastValue = jokeTypeSelect.value;
+        fetchJoke('type', lastValue);
+    } else {
+        fetchJoke('random');
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    if (lastType === 'random') {
+        fetchJoke('random');
+    } else if (lastType === 'type') {
+        fetchJoke('type', lastValue);
+    }
+});
