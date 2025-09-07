@@ -26,3 +26,29 @@ function showJoke(joke) {
     }
     nextBtn.style.display = (lastType === 'random' || lastType === 'type') ? 'inline-block' : 'none';
 }
+
+async function fetchJoke(type, value) {
+    let url = '';
+    if (type === 'random') {
+        url = 'https://official-joke-api.appspot.com/random_joke';
+    } else if (type === 'id') {
+        url = `https://official-joke-api.appspot.com/jokes/${value}`;
+    } else if (type === 'type') {
+        url = `https://official-joke-api.appspot.com/jokes/${value}/random`;
+    }
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (Array.isArray(data)) {
+            showJoke(data[0]);
+        } else if (data.setup) {
+            showJoke(data);
+        } else {
+            jokeDisplay.textContent = 'Nem található ilyen vicc!';
+            nextBtn.style.display = 'none';
+        }
+    } catch {
+        jokeDisplay.textContent = 'Hiba történt a lekérés során!';
+        nextBtn.style.display = 'none';
+    }
+}
