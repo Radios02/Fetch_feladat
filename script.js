@@ -6,16 +6,19 @@ const jokeDisplay = document.getElementById('jokeDisplay');
 const nextBtn = document.getElementById('nextBtn');
 
 let lastType = 'random';
-let lastValue = null;
+let category = null;
 
-fetchType.addEventListener('change', () => {
-    jokeIdInput.style.display = 'none';
-    jokeTypeSelect.style.display = 'none';
-    if (fetchType.value === 'id') {
-        jokeIdInput.style.display = 'inline-block';
-    } else if (fetchType.value === 'type') {
-        jokeTypeSelect.style.display = 'inline-block';
-    }
+// NAV gombok kezelése
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    lastType = btn.getAttribute('data-type');
+    jokeIdInput.style.display = lastType === 'id' ? 'inline-block' : 'none';
+    jokeTypeSelect.style.display = lastType === 'type' ? 'inline-block' : 'none';
+    jokeDisplay.textContent = ''; // Vicc törlése menüpont váltáskor
+    nextBtn.style.display = 'none'; // Következő gomb elrejtése
+  });
 });
 
 function showJoke(joke) {
@@ -27,14 +30,14 @@ function showJoke(joke) {
     nextBtn.style.display = (lastType === 'random' || lastType === 'type') ? 'inline-block' : 'none';
 }
 
-async function fetchJoke(type, value) {
+async function fetchJoke(type, category) {
     let url = '';
     if (type === 'random') {
         url = 'https://official-joke-api.appspot.com/random_joke';
     } else if (type === 'id') {
-        url = `https://official-joke-api.appspot.com/jokes/${value}`;
+        url = `https://official-joke-api.appspot.com/jokes/${category}`;
     } else if (type === 'type') {
-        url = `https://official-joke-api.appspot.com/jokes/${value}/random`;
+        url = `https://official-joke-api.appspot.com/jokes/${category}/random`;
     }
     try {
         const res = await fetch(url);
@@ -53,23 +56,24 @@ async function fetchJoke(type, value) {
     }
 }
 
+// Lekérés gomb
 fetchBtn.addEventListener('click', () => {
-    lastType = fetchType.value;
     if (lastType === 'id') {
-        lastValue = jokeIdInput.value;
-        fetchJoke('id', lastValue);
+        category = jokeIdInput.value;
+        fetchJoke('id', category);
     } else if (lastType === 'type') {
-        lastValue = jokeTypeSelect.value;
-        fetchJoke('type', lastValue);
+        category = jokeTypeSelect.value;
+        fetchJoke('type', category);
     } else {
         fetchJoke('random');
     }
 });
 
+// Következő vicc gomb
 nextBtn.addEventListener('click', () => {
     if (lastType === 'random') {
         fetchJoke('random');
     } else if (lastType === 'type') {
-        fetchJoke('type', lastValue);
+        fetchJoke('type', category);
     }
 });
